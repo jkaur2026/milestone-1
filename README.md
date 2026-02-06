@@ -97,9 +97,7 @@ The prediction is returned as a JSON response
 
 
 API EXAMPLES:
-Example request:
-
-```json
+''json
 {"features":[1,2,3,4]}
 
 curl -X POST http://127.0.0.1:8000/predict \
