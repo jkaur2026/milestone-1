@@ -95,9 +95,6 @@ The trained model is loaded from model.pkl
 The model generates a prediction
 The prediction is returned as a JSON response
 
-API EXAMPLES:
-Example request:
-
 ```json
 {"features":[1,2,3,4]}
 
