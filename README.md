@@ -73,6 +73,19 @@ curl -X POST "https://us-central1-milestone1-project.cloudfunctions.net/predict-
   -H "Content-Type: application/json" \
   -d '{"features":[1,2,3,4]}'
 
+Comparison of Deployment Patterns:
+Cloud Run vs Cloud Function
+Cloud Run:
+Runs a containerized FastAPI application
+Model loads once when the container starts
+Better for continuous traffic
+Cloud Functions:
+Runs a single function handler
+More stateless execution
+Model may reload during cold start
+
+
+
 API EXAMPLES:
 Example request:
 
@@ -112,16 +125,7 @@ The trained model is loaded from model.pkl
 The model generates a prediction
 The prediction is returned as a JSON response
 
-Comparison of Deployment Patterns:
-Cloud Run vs Cloud Function
-Cloud Run:
-Runs a containerized FastAPI application
-Model loads once when the container starts
-Better for continuous traffic
-Cloud Functions:
-Runs a single function handler
-More stateless execution
-Model may reload during cold start
+
 
 
 
