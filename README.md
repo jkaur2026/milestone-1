@@ -11,7 +11,7 @@ Create a Python virtual environment
 
 Model
 - Type: scikit-learn classification model  
-- Artifact: `model.pkl`  
+- Artifact: model.pkl
 - Input: Numerical feature vector (4 values)  
 Output:
 {"prediction": 2,
@@ -84,7 +84,16 @@ Runs a single function handler
 More stateless execution
 Model may reload during cold start
 
+Lifecycle Stage Explanations:
+The model serving stage is when a trained machine learning model is made available for real use. In this project, the saved model is loaded and connected to an API so that users can send data and receive predictions.
 
+Model–API Interaction Description:
+When a request is received:
+The API parses the incoming JSON
+The feature values are converted into a NumPy array
+The trained model is loaded from model.pkl
+The model generates a prediction
+The prediction is returned as a JSON response
 
 API EXAMPLES:
 Example request:
@@ -114,16 +123,6 @@ curl -X POST https://us-central1-milestone1-project.cloudfunctions.net/predict-f
 Response:
 {"prediction":0}
 
-Lifecycle Stage Explanations:
-The model serving stage is when a trained machine learning model is made available for real use. In this project, the saved model is loaded and connected to an API so that users can send data and receive predictions.
-
-Model–API Interaction Description:
-When a request is received:
-The API parses the incoming JSON
-The feature values are converted into a NumPy array
-The trained model is loaded from model.pkl
-The model generates a prediction
-The prediction is returned as a JSON response
 
 
 
