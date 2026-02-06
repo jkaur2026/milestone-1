@@ -1,14 +1,23 @@
 # milestone-1
 
-##Model
-- Model Type: scikit-learn classification model  
+The Process:
+All deployments use the same trained model artifact (model.pkl)
+Create a Python virtual environment   
+- Train the machine learning model to generate model.pkl  
+- Run a FastAPI service locally using Uvicorn  
+- Build and run a Docker container locally  
+- Deploy the container to Google Cloud Run  
+- Deploy a serverless function using Google Cloud Functions 
+
+Model
+- Type: scikit-learn classification model  
 - Artifact: `model.pkl`  
 - Input: Numerical feature vector (4 values)  
 Output:
 {"prediction": 2,
   "probabilities": [...]}
 
-##Project Files used
+Project Files used and its structure
 milestone-1/
 main.py
 train_model.py
@@ -19,7 +28,6 @@ README.md
 cloud_function
 main.py
 requirements.txt
-
 
 Step 1 of assignment(FastAPI Service) 
 created virtual environment
@@ -65,7 +73,55 @@ curl -X POST "https://us-central1-milestone1-project.cloudfunctions.net/predict-
   -H "Content-Type: application/json" \
   -d '{"features":[1,2,3,4]}'
 
+API EXAMPLES:
+Example request:
 
+```json
+{"features":[1,2,3,4]}
+
+curl -X POST http://127.0.0.1:8000/predict \
+-H "Content-Type: application/json" \
+-d '{"features":[1,2,3,4]}'
+Result:
+{"prediction":0}
+
+Running the cloud:
+curl -X POST https://predict-fn2-546876087348.us-central1.run.app/predict \
+-H "Content-Type: application/json" \
+-d '{"features":[1,2,3,4]}'
+
+Response:
+{"prediction":0}
+
+Cloud Function:
+curl -X POST https://us-central1-milestone1-project.cloudfunctions.net/predict-fn2 \
+-H "Content-Type: application/json" \
+-d '{"features":[1,2,3,4]}'
+
+Response:
+{"prediction":0}
+
+Lifecycle Stage Explanations:
+The model serving stage is when a trained machine learning model is made available for real use. In this project, the saved model is loaded and connected to an API so that users can send data and receive predictions.
+
+Model–API Interaction Description:
+When a request is received:
+The API parses the incoming JSON
+The feature values are converted into a NumPy array
+The trained model is loaded from model.pkl
+The model generates a prediction
+The prediction is returned as a JSON response
+
+Comparison of Deployment Patterns:
+Cloud Run vs Cloud Function
+Cloud Run:
+Runs a containerized FastAPI application
+Model loads once when the container starts
+Better for continuous traffic
+Cloud Functions:
+Runs a single function handler
+More stateless execution
+Model may reload during cold start
 
 
 
